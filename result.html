@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sports Popularity Prediction</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 50%;
+      margin: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Football Popularity Prediction Results</h2>
+
+  <table>
+    <tr>
+      <th>Method</th>
+      <th>RMSE</th>
+    </tr>
+    <tr>
+      <td>Naive Method</td>
+      <td>23.8863</td>
+    </tr>
+    <tr>
+      <td>SimpleAvg</td>
+      <td>19.2752</td>
+    </tr>
+    <tr>
+      <td>SARIMA</td>
+      <td>9.85755</td>
+    </tr>
+    <tr>
+      <td>Holts_linear</td>
+      <td>80.057</td>
+    </tr>
+  </table>
+
+  <p>Although the SARIMA Model performs better than the naive method, simple avg model, and Holt linear trend model.</p>
+
+  <h2>Basketball Popularity Prediction Results</h2>
+
+  <table>
+    <tr>
+      <th>Method</th>
+      <th>RMSE</th>
+    </tr>
+    <tr>
+      <td>Naive Method</td>
+      <td>23.8863</td>
+    </tr>
+    <tr>
+      <td>SimpleAvg</td>
+      <td>16.8475</td>
+    </tr>
+    <tr>
+      <td>Holts_linear</td>
+      <td>78.0864</td>
+    </tr>
+    <tr>
+      <td>SARIMA</td>
+      <td>17.255</td>
+    </tr>
+  </table>
+
+  <p>Although the SARIMA Model does not perform better than the simple avg method, it performs better than other models. It can be used for certain datasets where the simple avg method or other models fail.</p>
+
+</body>
+</html>
