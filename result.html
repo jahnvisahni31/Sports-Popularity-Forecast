@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +8,7 @@
     table {
       border-collapse: collapse;
       width: 50%;
-      margin: 20px;
+      margin: 20px auto;
     }
 
     th, td {
@@ -21,63 +20,96 @@
     th {
       background-color: #f2f2f2;
     }
+
+    .content {
+      text-align: center;
+    }
+
+    select {
+      padding: 10px;
+      margin: 20px;
+    }
   </style>
 </head>
 <body>
 
-  <h2>Football Popularity Prediction Results</h2>
+  <div class="content">
+    <h2>Sports Popularity Prediction Results</h2>
 
-  <table>
-    <tr>
-      <th>Method</th>
-      <th>RMSE</th>
-    </tr>
-    <tr>
-      <td>Naive Method</td>
-      <td>23.8863</td>
-    </tr>
-    <tr>
-      <td>SimpleAvg</td>
-      <td>19.2752</td>
-    </tr>
-    <tr>
-      <td>SARIMA</td>
-      <td>9.85755</td>
-    </tr>
-    <tr>
-      <td>Holts_linear</td>
-      <td>80.057</td>
-    </tr>
-  </table>
+    <label for="sportSelect">Choose a sport:</label>
+    <select id="sportSelect" onchange="updateTable()">
+      <option value="football">Football</option>
+      <option value="basketball">Basketball</option>
+    </select>
 
-  <p>Although the SARIMA Model performs better than the naive method, simple avg model, and Holt linear trend model.</p>
+    <table id="resultsTable">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>RMSE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows will be populated by JavaScript -->
+      </tbody>
+    </table>
 
-  <h2>Basketball Popularity Prediction Results</h2>
+    <p id="conclusion">
+      <!-- Conclusion will be populated by JavaScript -->
+    </p>
+  </div>
 
-  <table>
-    <tr>
-      <th>Method</th>
-      <th>RMSE</th>
-    </tr>
-    <tr>
-      <td>Naive Method</td>
-      <td>23.8863</td>
-    </tr>
-    <tr>
-      <td>SimpleAvg</td>
-      <td>16.8475</td>
-    </tr>
-    <tr>
-      <td>Holts_linear</td>
-      <td>78.0864</td>
-    </tr>
-    <tr>
-      <td>SARIMA</td>
-      <td>17.255</td>
-    </tr>
-  </table>
+  <script>
+    const data = {
+      football: {
+        rows: [
+          { method: 'Naive Method', rmse: '23.8863' },
+          { method: 'SimpleAvg', rmse: '19.2752' },
+          { method: 'SARIMA', rmse: '9.85755' },
+          { method: 'Holts_linear', rmse: '80.057' },
+        ],
+        conclusion: 'Although the SARIMA Model performs better than the naive method, simple avg model, and Holt linear trend model.'
+      },
+      basketball: {
+        rows: [
+          { method: 'Naive Method', rmse: '23.8863' },
+          { method: 'SimpleAvg', rmse: '16.8475' },
+          { method: 'SARIMA', rmse: '17.255' },
+          { method: 'Holts_linear', rmse: '78.0864' },
+        ],
+        conclusion: 'Although the SARIMA Model does not perform better than the simple avg method, it performs better than other models. It can be used for certain datasets where the simple avg method or other models fail.'
+      }
+    };
 
-  <p>Although the SARIMA Model does not perform better than the simple avg method, it performs better than other models. It can be used for certain datasets where the simple avg method or other models fail.</p>
+    function updateTable() {
+      const sport = document.getElementById('sportSelect').value;
+      const tableBody = document.querySelector('#resultsTable tbody');
+      const conclusionParagraph = document.getElementById('conclusion');
+
+      // Clear existing table rows
+      tableBody.innerHTML = '';
+
+      // Populate table with new rows
+      data[sport].rows.forEach(row => {
+        const tr = document.createElement('tr');
+        const tdMethod = document.createElement('td');
+        const tdRmse = document.createElement('td');
+        
+        tdMethod.textContent = row.method;
+        tdRmse.textContent = row.rmse;
+        
+        tr.appendChild(tdMethod);
+        tr.appendChild(tdRmse);
+        tableBody.appendChild(tr);
+      });
+
+      // Update conclusion
+      conclusionParagraph.textContent = data[sport].conclusion;
+    }
+
+    // Initialize table on page load
+    document.addEventListener('DOMContentLoaded', updateTable);
+  </script>
 
 </body>
 </html>
