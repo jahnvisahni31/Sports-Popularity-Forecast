@@ -5,10 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sports Popularity Prediction</title>
   <style>
+    body {
+      background-color: #000;
+      color: #add8e6;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
     table {
       border-collapse: collapse;
       width: 50%;
       margin: 20px auto;
+      color: #add8e6;
     }
 
     th, td {
@@ -18,23 +26,26 @@
     }
 
     th {
-      background-color: #f2f2f2;
-    }
-
-    .content {
-      text-align: center;
+      background-color: #333;
     }
 
     select {
       padding: 10px;
       margin: 20px;
+      background-color: #333;
+      color: #add8e6;
+      border: none;
+    }
+
+    h2, label, p {
+      color: #add8e6;
     }
   </style>
 </head>
 <body>
 
   <div class="content">
-    <h2>Sports Popularity Prediction Results</h2>
+    <h2 id="gameTitle">Football Popularity Prediction Results</h2>
 
     <label for="sportSelect">Choose a sport:</label>
     <select id="sportSelect" onchange="updateTable()">
@@ -85,6 +96,10 @@
       const sport = document.getElementById('sportSelect').value;
       const tableBody = document.querySelector('#resultsTable tbody');
       const conclusionParagraph = document.getElementById('conclusion');
+      const gameTitle = document.getElementById('gameTitle');
+
+      // Update game title
+      gameTitle.textContent = `${capitalize(sport)} Popularity Prediction Results`;
 
       // Clear existing table rows
       tableBody.innerHTML = '';
@@ -105,6 +120,10 @@
 
       // Update conclusion
       conclusionParagraph.textContent = data[sport].conclusion;
+    }
+
+    function capitalize(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
     // Initialize table on page load
